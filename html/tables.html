@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Table List</h1>
+    <ul id='table-list'>
+        
+    </ul>
+    <script>
+        // mock data
+        
+        async function mainApp(){
+            tableList = await fetch('/api/tables').then(result=>result.json())
+            
+            tableList.forEach(function(row){
+                document.querySelector('#table-list').innerHTML +=
+                    `<li>${row.name}, email: ${row.email}</li>`
+            })
+            
+            // fetch API data
+            // setup the server API endpoint
+        }
+        mainApp()
+
+    </script>
+</body>
+</html>
