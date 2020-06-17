@@ -47,15 +47,31 @@ const express = require('express')
 const app = express()
 const PORT = 8080
 
+var path = require("path");
+
 app.use(express.static('html'))
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 const tableList = [
-    { name: "george", email: "george@clooney.com", id: 'table-1' }, 
-    { name: "Jeff", email: "jeff@bezos.com", id: 'table-2' } 
+    { customerName: "george", phoneNumber: `124`, customerEmail: "george@clooney.com", customerID: 'table-1' }, 
+    { customerName: "Jeff", phoneNumber: '111111', customerEmail: "jeff@bezos.com", customerID: 'table-2' } 
 ]
+
+// app.get(["/","/landingpage"], function(req, res){
+//     res.sendFile(path.join(__dirname, '/html', "/landingpage.html"));
+// })
+
+// app.get('/tables', function(req, res){
+//     res.sendFile(path.join(__dirname, '/html', "/tables.html"));
+// })
+
+// app.get('/reserve', function(req, res){
+//     res.sendFile(path.join(__dirname, '/html', "/reserve.html"));
+// })
+
+
 
 app.get('/api/tables', function(req, res){
     res.send(tableList)

@@ -24,7 +24,7 @@
       <h2 class="text-center">Make your reservation</h2>
       <br>
       <div class="text-center">
-        <a href="/tables">
+        <a href="/tables.html">
           <button class="btn btn-lg btn-primary">
             <span class="fa fa-list-alt"></span> View Tables</button>
         </a>
@@ -100,33 +100,54 @@
       customerID: $("#reserve-unique-id").val().trim()
     };
 
+    let postSettings = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newReservation)
+    }
+
     console.log(newReservation);
 
+
+  async function mainApp(){
+    async function checkTables(){
+      let tables = await fetch('/api/tables').then(response=>response.json())
+      console.log(tables.length)
+      return tables.length < 5
+    }
     // This line is the magic. It"s very similar to the standard ajax function we used.
     // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
     // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
     // depending on if a tables is available or not.
-
-    $.post("/api/tables", newReservation,
-      function(data) {
-
-        // If a table is available... tell user they are booked.
-        if (data) {
+    async function requestReservation(){
+      // If a table is available... tell user they are booked.
+      if (await checkTables()) {
+          let result = await fetch('/api/reserve', postSettings)
+            .then(response=>{console.log(response); return response.json()})
           alert("Yay! You are officially booked!");
+          console.log(result)
+          return result
         }
 
         // If a table is available... tell user they on the waiting list.
-        else {
+      else {
           alert("Sorry you are on the wait list");
         }
 
-        // Clear the form when submitting
-        $("#reserve-name").val("");
-        $("#reserve-phone").val("");
-        $("#reserve-email").val("");
-        $("#reserve-unique-id").val("");
+      // Clear the form when submitting
+      $("#reserve-name").val("");
+      $("#reserve-phone").val("");
+      $("#reserve-email").val("");
+      $("#reserve-unique-id").val("");
 
-      });
+    }
+    let myRequest = await requestReservation()
+  }
+  mainApp()
+    
 
   });
 
