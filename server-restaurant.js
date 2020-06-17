@@ -41,3 +41,36 @@
 // const tableList = fetch('/api/tables').then(result=result.json())
 // (hardcode for testing front-end) const tableList = [ {name: ..., email: ..., id: 'table-1'}, {name: ..., email: ..., id: 'table-2}]
 // Now with this tableList
+
+const express = require('express')
+
+const app = express()
+const PORT = 8080
+
+app.use(express.static('html'))
+
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+
+const tableList = [
+    { name: "george", email: "george@clooney.com", id: 'table-1' }, 
+    { name: "Jeff", email: "jeff@bezos.com", id: 'table-2' } 
+]
+
+app.get('/api/tables', function(req, res){
+    res.send(tableList)
+})
+
+app.post('/api/reserve', function(req, res){
+    const newReservation = req.body
+    tableList.push(newReservation)
+
+    console.log(tableList)
+
+    res.send({status: true, message: `Cool beans, we saved it for you`})
+})
+
+app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+  
