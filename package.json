@@ -1,0 +1,19 @@
+{
+  "name": "sushi-hut",
+  "version": "1.0.0",
+  "description": "Make reservation at Sushi Hut, the first restaurant to serve both sushi and pizza",
+  "main": "server-restaurant.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EddiEsteban/sushi-hut.git"
+  },
+  "author": "Doug, Eddi, Sadia, Samuel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EddiEsteban/sushi-hut/issues"
+  },
+  "homepage": "https://github.com/EddiEsteban/sushi-hut#readme"
+}
